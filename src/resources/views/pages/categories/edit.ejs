@@ -1,0 +1,65 @@
+<div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-medium">Cập nhật danh mục</h1>
+  
+    <a href="/categories" class="bg-[#3c50e0] text-white px-3 py-2 rounded"
+      >Danh sách danh mục</a
+    >
+  </div>
+  
+  <div class="rounded-sm border border-stroke bg-white shadow">
+    <div class="border-b border-stroke px-6 py-4">
+      <h3 class="font-medium text-black">Input Fields</h3>
+    </div>
+    <div class="flex flex-col gap-5.5 p-6">
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        action="/categories/<%= data._id %>/edit/?_method=PUT"
+      >
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Tên danh mục
+            <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Nhập tên danh mục"
+            class="w-full rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+            name="name"
+            value="<%= data.name %>"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Ảnh danh mục
+          </label>
+          <input
+            type="file"
+            class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10"
+            name="image"
+            accept="image/*"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Preview
+          </label>
+  
+          <img
+            src="<%= data.image %>"
+            alt="Preview"
+            class="block w-28 h-28 object-cover rounded"
+          />
+        </div>
+  
+        <button
+          class="px-3 py-2.5 rounded text-white bg-[#3c50e0] w-full mt-6 hover:opacity-85 transition-all"
+        >
+          Cập nhật danh mục
+        </button>
+      </form>
+    </div>
+  </div>
+  
