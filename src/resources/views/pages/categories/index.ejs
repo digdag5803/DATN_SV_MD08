@@ -1,0 +1,59 @@
+<div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-medium">Quản lý danh mục</h1>
+  
+    <a href="/categories/add" class="bg-[#3c50e0] text-white px-3 py-2 rounded"
+      >Thêm danh mục</a
+    >
+  </div>
+  
+  <div class="rounded-sm border bg-white px-5 pb-2.5 pt-6 shadow">
+    <div class="flex flex-col">
+      <div class="grid grid-cols-4 rounded-sm bg-[#f7f9fc]">
+        <div class="p-2.5">
+          <h5 class="text-sm font-medium uppercase text-[#64748b]">STT</h5>
+        </div>
+        <div class="p-2.5 text-center">
+          <h5 class="text-sm font-medium uppercase text-[#64748b]">
+            Tên danh mục
+          </h5>
+        </div>
+        <div class="p-2.5 text-center">
+          <h5 class="text-sm font-medium uppercase text-[#64748b]">
+            Ảnh danh mục
+          </h5>
+        </div>
+        <div class="p-2.5 text-center">
+          <h5 class="text-sm font-medium uppercase text-[#64748b]">Hành động</h5>
+        </div>
+      </div>
+  
+      <div>
+        <% data.forEach((item, index) => { %>
+        <div class="grid grid-cols-4 [&:not(:last-child)]:border-b">
+          <div class="flex items-center gap-3 p-5">
+            <p class="font-medium text-black"><%= index + 1 %></p>
+          </div>
+  
+          <div class="flex items-center justify-center p-5">
+            <p class="font-medium text-black"><%= item.name %></p>
+          </div>
+  
+          <div class="flex items-center justify-center p-5">
+            <img
+              src="<%= item.image %>"
+              alt="Image"
+              class="w-24 h-24 object-cover rounded block"
+            />
+          </div>
+  
+          <div class="flex items-center justify-center p-5">
+            <a href="/categories/<%= item._id %>/edit" class="block text-xl">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+  
