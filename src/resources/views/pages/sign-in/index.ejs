@@ -1,0 +1,41 @@
+<main class="h-screen flex items-center justify-center flex-col p-3">
+  <h1 class="mb-4 font-semibold text-3xl">Sign In</h1>
+
+  <form action="" method="POST" class="w-[500px] max-w-full">
+    <div class="mb-4">
+      <label class="mb-2 block text-sm font-medium text-black"
+        >Email
+        <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        placeholder="Email"
+        name="email"
+        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+        value="<%= data?.email %>"
+      />
+    </div>
+
+    <div class="mb-1">
+      <label class="mb-2 block text-sm font-medium text-black"
+        >Password
+        <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+        value="<%= data?.password %>"
+      />
+    </div>
+
+    <p class="text-sm text-red-500"><%= errorMsg %></p>
+
+    <button
+      class="w-full mt-6 bg-[#3c50e0] text-white font-medium py-3 rounded hover:opacity-85 transition-all"
+    >
+      Sign In
+    </button>
+  </form>
+</main>
