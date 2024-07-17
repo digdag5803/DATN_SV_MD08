@@ -1,0 +1,199 @@
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-2xl font-medium">Quản lý thông báo</h1>
+
+  <button
+    class="bg-[#3c50e0] text-white px-3 py-2 rounded"
+    id="send-notification"
+  >
+    Gửi thông báo
+  </button>
+</div>
+
+<div class="rounded-sm border bg-white px-5 pb-2.5 pt-6 shadow">
+  <div class="flex flex-col">
+    <div class="grid grid-cols-5 rounded-sm bg-[#f7f9fc]">
+      <div class="p-2.5"></div>
+      <div class="p-2.5">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">STT</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Tài khoản</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Email</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Vai trò</h5>
+      </div>
+    </div>
+
+    <div>
+      <% data.forEach((item, index) => { %>
+      <div class="grid grid-cols-5 [&:not(:last-child)]:border-b">
+        <div class="flex items-center gap-3 p-5">
+          <div class="relative pt-0.5">
+            <input
+              type="checkbox"
+              id="formCheckbox-<%= item._id %>"
+              class="taskCheckbox sr-only"
+              name="user"
+              value="<%= item._id %>"
+            />
+            <label
+              for="formCheckbox-<%= item._id %>"
+              class="box mr-3 flex h-5 w-5 items-center justify-center rounded border border-stroke cursor-pointer"
+            >
+              <span class="text-white opacity-0">
+                <svg
+                  class="fill-current"
+                  width="10"
+                  height="7"
+                  viewBox="0 0 10 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M9.70685 0.292804C9.89455 0.480344 10 0.734667 10 0.999847C10 1.26503 9.89455 1.51935 9.70685 1.70689L4.70059 6.7072C4.51283 6.89468 4.2582 7 3.9927 7C3.72721 7 3.47258 6.89468 3.28482 6.7072L0.281063 3.70701C0.0986771 3.5184 -0.00224342 3.26578 3.785e-05 3.00357C0.00231912 2.74136 0.10762 2.49053 0.29326 2.30511C0.4789 2.11969 0.730026 2.01451 0.992551 2.01224C1.25508 2.00996 1.50799 2.11076 1.69683 2.29293L3.9927 4.58607L8.29108 0.292804C8.47884 0.105322 8.73347 0 8.99896 0C9.26446 0 9.51908 0.105322 9.70685 0.292804Z"
+                    fill=""
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-5">
+          <p class="font-medium text-black"><%= index + 1 %></p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-x-2">
+          <img
+            src="<%= item.avatar %>"
+            alt="Avatar"
+            class="w-12 h-12 object-cover rounded-full"
+          />
+          <p class="font-medium text-black"><%= item.full_name %></p>
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <p class="font-medium text-black"><%= item.email %></p>
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <p class="font-medium text-black">
+            <%= item.role === 'admin' ? 'Admin' : 'Member' %>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<div class="modal">
+  <div class="modal__overlay"></div>
+
+  <div class="modal__content">
+    <div class="modal__content-close-icon">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+
+    <form action="" class="mt-3" id="notification-form">
+      <div class="mb-4">
+        <label class="mb-2 block text-sm font-medium text-black">
+          Tiêu đề
+          <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Nhập tiêu đề"
+          class="w-full rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+          name="title"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="mb-3 block text-sm font-medium text-black">
+          Nội dung
+          <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          rows="6"
+          placeholder="Nội dung thông báo"
+          class="resize-none w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+          name="body"
+        ></textarea>
+      </div>
+
+      <button
+        class="px-3 py-2.5 rounded text-white bg-[#3c50e0] min-w-28 block mx-auto mt-3 hover:opacity-85 transition-all"
+      >
+        Gửi
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const sendNotificationBtnElm = document.querySelector("#send-notification");
+  const modalElm = document.querySelector(".modal");
+  const overlayElm = modalElm.querySelector(".modal__overlay");
+  const closeIconElm = modalElm.querySelector(".modal__content-close-icon");
+  const notificationForm = document.querySelector("#notification-form");
+
+  const onOpenModal = () => modalElm.classList.add("active");
+  const onCloseModal = () => modalElm.classList.remove("active");
+
+  sendNotificationBtnElm.addEventListener("click", () => {
+    const checkboxElms = document.querySelectorAll(".taskCheckbox:checked");
+    if (checkboxElms.length > 0) {
+      onOpenModal();
+    }
+  });
+
+  overlayElm.addEventListener("click", onCloseModal);
+  closeIconElm.addEventListener("click", onCloseModal);
+
+  notificationForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const titleElm = notificationForm.querySelector("input[name='title']");
+    const bodyElm = notificationForm.querySelector("textarea[name='body']");
+
+    if (!titleElm.value || !bodyElm.value) {
+      alert("Vui lòng nhập tiêu đề và nội dung thông báo!");
+    } else {
+      const checkboxElms = document.querySelectorAll(".taskCheckbox:checked");
+
+      const userIds = Array.from(checkboxElms).map((it) => it.value);
+
+      const body = {
+        title: titleElm.value,
+        body: bodyElm.value,
+        userIds,
+      };
+
+      try {
+        await fetch("/notifications", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        alert("Send notification successfully");
+        checkboxElms.forEach((it) => {
+          it.checked = false;
+        });
+        titleElm.value = "";
+        bodyElm.value = "";
+        onCloseModal();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
+</script>
