@@ -1,0 +1,236 @@
+<div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-medium">Cập nhật sản phẩm</h1>
+  
+    <a href="/products" class="bg-[#3c50e0] text-white px-3 py-2 rounded"
+      >Danh sách SP</a
+    >
+  </div>
+  
+  <div class="rounded-sm border border-stroke bg-white shadow">
+    <div class="border-b border-stroke px-6 py-4">
+      <h3 class="font-medium text-black">Input Fields</h3>
+    </div>
+    <div class="flex flex-col gap-5.5 p-6">
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        action="/products/<%= data._id %>/edit/?_method=PUT"
+      >
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Tên sản phẩm
+            <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Nhập tên sản phẩm"
+            class="w-full rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+            name="name"
+            value="<%= data.name %>"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Giá sản phẩm
+            <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="number"
+            placeholder="Nhập giá sản phẩm"
+            class="w-full rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+            name="price"
+            value="<%= data.price %>"
+          />
+        </div>
+  
+        
+        <div class="mb-4">
+          <label class="mb-3 block text-sm font-medium text-black">
+            Danh mục SP
+            <span class="text-red-500">*</span>
+          </label>
+          <div class="relative z-20 bg-white">
+            <select
+              class="relative z-20 w-full appearance-none rounded-lg border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-[#3c50e0]"
+              name="category"
+            >
+              <option value="">Chọn danh mục SP</option>
+              <% for ( var i = 0; i < categories.length; i++ ) { const categoryId = data.category.toString();
+                const selected = ( categories[i]._id == categoryId ) ? "selected" : "";
+              %>
+                <option value="<%=categories[i]._id %>" <%=selected %>><%=categories[i].name %></option>
+              <% } %>
+            </select>
+  
+  
+            <span class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g opacity="0.8">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
+                    fill="#637381"
+                  ></path>
+                </g>
+              </svg>
+            </span>
+          </div>
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Ảnh bìa SP
+            <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="file"
+            class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10"
+            name="thumbnail"
+            accept="image/*"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Preview
+          </label>
+  
+          <img
+            src="<%= data.thumbnail %>"
+            alt="Preview"
+            class="block w-28 h-28 object-cover rounded"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Ảnh SP
+            <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="file"
+            class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10"
+            name="images"
+            multiple
+            accept="image/*"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Preview
+          </label>
+  
+          <div class="flex gap-x-2">
+            <% data.images.forEach((item, index) => { %>
+            <img
+              src="<%= item %>"
+              alt="Preview"
+              class="block w-28 h-28 object-cover rounded"
+            />
+            <% }) %>
+          </div>
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-2 block text-sm font-medium text-black">
+            Biến thể SP
+            <span class="text-red-500">*</span>
+          </label>
+  
+          <div class="variants">
+            <% data.variants.forEach((item, index) => { %>
+            <div class="flex gap-x-2 [&:not(:last-child)]:mb-2">
+              <input
+                type="text"
+                placeholder="Nhập mã màu"
+                class="w-1/3 rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+                name="color"
+                value="<%= item.color %>"
+              />
+  
+              <input
+                type="number"
+                placeholder="Nhập size"
+                class="w-full rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+                name="size"
+                value="<%= item.size %>"
+              />
+            </div>
+            <% }) %>
+          </div>
+  
+          <button
+            class="bg-[#3c50e0] text-white px-3 py-1.5 text-sm block mx-auto mt-3 rounded cursor-pointer"
+            id="add-more"
+            type="button"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Add more
+          </button>
+        </div>
+  
+        <div class="mb-4">
+          <label class="mb-3 block text-sm font-medium text-black">
+            Mô tả SP
+          </label>
+          <textarea
+            rows="6"
+            placeholder="Mô tả SP"
+            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]"
+            name="description"
+          >
+  <%= data.description %></textarea
+          >
+        </div>
+  
+        <button
+          class="px-3 py-2.5 rounded text-white bg-[#3c50e0] w-full mt-6 hover:opacity-85 transition-all"
+        >
+          Cập nhật SP
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    const addMoreBtn = document.querySelector("#add-more");
+    const variantsElm = document.querySelector(".variants");
+  
+    addMoreBtn.addEventListener("click", () => {
+      // Create the div element
+      const divElement = document.createElement("div");
+      divElement.className = "flex gap-x-2 [&:not(:last-child)]:mb-2";
+  
+      // Create the first input element
+      const inputColor = document.createElement("input");
+      inputColor.type = "text";
+      inputColor.placeholder = "Nhập mã màu";
+      inputColor.className =
+        "w-1/3 rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]";
+      inputColor.name = "color";
+  
+      // Create the second input element
+      const inputSize = document.createElement("input");
+      inputSize.type = "number";
+      inputSize.placeholder = "Nhập size";
+      inputSize.className =
+        "w-full rounded-lg border-[1.5px] border bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-[#3c50e0]";
+      inputSize.name = "size";
+  
+      // Append the input elements to the div
+      divElement.appendChild(inputColor);
+      divElement.appendChild(inputSize);
+  
+      // Append the div to the parent container
+      variantsElm.appendChild(divElement);
+    });
+  </script>
