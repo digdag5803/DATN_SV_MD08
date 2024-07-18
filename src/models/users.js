@@ -17,7 +17,6 @@ const userSchema = new Schema(
     },
     full_name: {
       type: String,
-      required: true,
     },
     phone: {
       type: String,
@@ -31,6 +30,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       required: true,
+      default: "member",
     },
   },
   { timestamps: true }

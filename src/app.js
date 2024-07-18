@@ -6,7 +6,9 @@ const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const routerAPI = require("./routers/apis/index");
 require("dotenv").config();
+const { SECRET_CODE } = process.env;
 
 const app = express();
 
@@ -31,6 +33,15 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: SECRET_CODE,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use("/api", routerAPI);
 
 // check login
 app.use((req, res, next) => {
