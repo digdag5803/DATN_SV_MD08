@@ -1,0 +1,89 @@
+<div class="mb-4 flex gap-x-2 justify-between">
+  <div>
+    <h1 class="text-2xl font-medium mb-2">
+      Chi tiết đơn hàng #<%= data.order._id %>
+    </h1>
+
+    <p class="leading-8">Tên người nhận: <%= data.order.user_id.full_name %></p>
+    <p class="leading-8">Số điện thoại: <%= data.order.user_id.phone %></p>
+    <p class="leading-8">Địa chỉ: <%= data.order.delivered_address %></p>
+    <p class="leading-8">Trạng thái: <%= data.order.status_id.status_name %></p>
+  </div>
+
+  <div class="flex gap-4 self-start">
+    <% data.orderStatus.forEach((item, index) => { %>
+    <a
+      onclick="return confirm('Xác nhận cập nhật trạng thái <%= item.status_name %>')"
+      href="/orders/<%= data.order._id %>/<%= item._id %>/update-status"
+      class="px-3 py-1.5 text-white rounded cursor-pointer bg-[#3c50e0]"
+    >
+      <%= item.status_name %>
+    </a>
+    <% }) %>
+  </div>
+</div>
+
+<div class="rounded-sm border bg-white px-5 pb-2.5 pt-6 shadow">
+  <div class="flex flex-col">
+    <div class="grid grid-cols-6 rounded-sm bg-[#f7f9fc]">
+      <div class="p-2.5">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">STT</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Tên SP</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Ảnh SP</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Giá SP</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Số lượng</h5>
+      </div>
+      <div class="p-2.5 text-center">
+        <h5 class="text-sm font-medium uppercase text-[#64748b]">Thành tiền</h5>
+      </div>
+    </div>
+
+    <div>
+      <% data.orderDetails.forEach((item, index) => { %>
+      <div class="grid grid-cols-6 [&:not(:last-child)]:border-b">
+        <div class="flex items-center gap-3 p-5">
+          <p class="font-medium text-black"><%= index + 1 %></p>
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <p class="font-medium text-black">
+            <%= item.product_detail_id.name %>
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <img
+            src="<%= item.product_detail_id.thumbnail %>"
+            alt="Image"
+            class="w-24 h-24 object-cover rounded block"
+          />
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <p class="font-medium text-black">
+            <%= item.product_detail_id.price %>
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <p class="font-medium text-black"><%= item.quantity %></p>
+        </div>
+
+        <div class="flex items-center justify-center p-5">
+          <p class="font-medium text-black">
+            <%= item.product_detail_id.price * item.quantity %>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

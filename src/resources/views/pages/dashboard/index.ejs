@@ -1,0 +1,111 @@
+<div class="bg-white rounded mb-3">
+  <div class="py-3 px-4 border-b font-semibold text-xl">
+    Doanh thu 7 ngày gần nhất
+  </div>
+
+  <div class="p-3">
+    <canvas id="7DayChart"></canvas>
+  </div>
+</div>
+
+<div class="bg-white rounded mb-3">
+  <div class="py-3 px-4 border-b font-semibold text-xl">
+    Doanh thu theo tháng
+  </div>
+
+  <div class="p-3">
+    <canvas id="monthRevenueChart"></canvas>
+  </div>
+</div>
+
+<div class="bg-white rounded mb-3">
+  <div class="py-3 px-4 border-b font-semibold text-xl">Doanh thu theo năm</div>
+
+  <div class="p-3">
+    <canvas id="yearRevenueChart"></canvas>
+  </div>
+</div>
+
+<script>
+  const revenueBy7Days = <%- JSON.stringify(revenueBy7Days) %>;
+  const revenueByMonth = <%- JSON.stringify(revenueByMonth) %>;
+  const revenueByYear = <%- JSON.stringify(revenueByYear) %>;
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // revenue by 7 day latest
+  const ctx = document.getElementById("7DayChart");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: revenueBy7Days.map((it) => it.date),
+      datasets: [
+        {
+          label: "Doanh thu",
+          data: revenueBy7Days.map((it) => it.totalRevenue),
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // revenue by month
+  const ctx2 = document.getElementById("monthRevenueChart");
+  new Chart(ctx2, {
+    type: "bar",
+    data: {
+      labels: revenueByMonth.map((it) => it.month),
+      datasets: [
+        {
+          label: "Doanh thu",
+          data: revenueByMonth.map((it) => it.totalRevenue),
+          borderWidth: 1,
+          borderColor: "#FF6384",
+          backgroundColor: "#FFB1C1",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // revenue by year
+  const ctx3 = document.getElementById("yearRevenueChart");
+  new Chart(ctx3, {
+    type: "bar",
+    data: {
+      labels: revenueByYear.map((it) => it.year),
+      datasets: [
+        {
+          label: "Doanh thu",
+          data: revenueByYear.map((it) => it.totalRevenue),
+          borderWidth: 1,
+          borderColor: "rgba(153, 102, 255, 1)",
+          backgroundColor: "rgba(153, 102, 255, 0.7)",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
