@@ -28,10 +28,12 @@ class AuthController {
       if (!isPasswordValid) {
         errorMsg = "Mật khẩu không chính xác";
       } else if (findUser.role !== "admin") {
-        
+
         errorMsg = "Bạn không có quyền truy cập!";
       } else {
         errorMsg = "";
+
+        
       }
     }
 
