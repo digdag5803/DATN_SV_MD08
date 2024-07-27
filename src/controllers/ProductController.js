@@ -13,6 +13,7 @@ class ProductController {
       price: formatPrice(it.price),
     }));
     res.render("pages/products", {
+      
       data: productFormatted,
     });
   }
