@@ -8,12 +8,13 @@ class ProductController {
       .populate("category")
       .sort("-createdAt")
       .exec();
+      
     const productFormatted = products.map((it) => ({
       ...it.toJSON(),
       price: formatPrice(it.price),
     }));
     res.render("pages/products", {
-      
+
       data: productFormatted,
     });
   }
