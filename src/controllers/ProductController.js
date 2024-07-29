@@ -11,9 +11,10 @@ class ProductController {
       
     const productFormatted = products.map((it) => ({
       ...it.toJSON(),
+      
       price: formatPrice(it.price),
     }));
-    
+
     res.render("pages/products", {
 
       data: productFormatted,
