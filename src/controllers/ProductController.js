@@ -19,11 +19,12 @@ class ProductController {
 
       data: productFormatted,
     });
-    
+
   }
 
   async add(req, res) {
     const categories = await Category.find().exec();
+    
     res.render("pages/products/add", {
       categories,
     });
