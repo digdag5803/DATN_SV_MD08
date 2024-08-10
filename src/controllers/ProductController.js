@@ -19,6 +19,7 @@ class ProductController {
 
       data: productFormatted,
     });
+    
   }
 
   async add(req, res) {
